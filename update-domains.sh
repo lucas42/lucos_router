@@ -16,7 +16,7 @@ domainlist=$(cat /etc/nginx/domain-list)
 for DOMAIN in $domainlist;
 do
 	echo "Renewing domain: $DOMAIN"
-	certbot --staging --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL && \
+	certbot --staging --non-interactive --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL && \
 	
 	# TODO: replace domain name into template
 	cat /etc/nginx/https-template.conf >> /etc/nginx/conf.d/$DOMAIN.conf && \
