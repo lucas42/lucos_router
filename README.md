@@ -2,7 +2,7 @@
 The "front-door" for lucos apps - handles TLS unwrapping and routing to the correct backend
 
 ## Running
-ADMINEMAIL=<email_address> docker run -d -e ADMINEMAIL -p 80:80 -p 443:443 --name router --mount source=letsencrypt,target=/etc/letsencrypt lucas42/lucos_router
+`ADMINEMAIL=<email_address> docker run -d -e ADMINEMAIL -p 80:80 -p 443:443 --name router --mount source=letsencrypt,target=/etc/letsencrypt lucas42/lucos_router`
 
 The ADMINEMAIL address is used for receiving emails from letsencrypt about cert renewals etc.
 
