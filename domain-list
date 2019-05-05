@@ -1,1 +1,12 @@
-testdomain.l42.eu http://10.0.0.7:8001
+zabbix.l42.eu http://10.0.0.3
+puppetdb.l42.eu http://10.0.0.1:8080
+contacts.l42.eu http://10.0.0.6
+app.tfluke.uk http://10.0.0.7:3000
+am.l42.eu http://10.0.0.7:8008
+auth.l42.eu http://10.0.0.7:8006
+l42.eu http://10.0.0.7:8003
+notes.l42.eu http://10.0.0.7:8004
+speak.l42.eu http://10.0.0.7:8014
+ceol.l42.eu http://10.0.0.7:8001
+seinn.l42.eu http://10.0.0.7:3001
+media-api.l42.eu http://10.0.0.7:3002
