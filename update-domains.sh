@@ -26,7 +26,7 @@ do
 	domainreplaced=${template//\{\{domain\}\}/$DOMAIN}
 	backendreplaced=${domainreplaced//\{\{backend\}\}/$BACKEND}
 
-	certbot certonly --staging --non-interactive --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL && \
+	certbot certonly --non-interactive --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL && \
 
 	echo "$backendreplaced" > /etc/nginx/conf.d/$DOMAIN.conf && \
 	service nginx reload || true
