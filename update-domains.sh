@@ -22,15 +22,14 @@ do
 	domaindetails=($line)
 	DOMAIN=${domaindetails[0]}
 	BACKEND=${domaindetails[1]}
-	echo "Setting up domain: $DOMAIN"
+	echo "Renewing domain: $DOMAIN"
 	domainreplaced=${template//\{\{domain\}\}/$DOMAIN}
 	backendreplaced=${domainreplaced//\{\{backend\}\}/$BACKEND}
 
-	echo "$backendreplaced" > /etc/nginx/conf.d/$DOMAIN.conf
+	certbot certonly --staging --non-interactive --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL && \
+
+	echo "$backendreplaced" > /etc/nginx/conf.d/$DOMAIN.conf && \
 	service nginx reload || true
-
-	certbot --staging --non-interactive --nginx -d $DOMAIN --agree-tos -m $ADMINEMAIL
-
 done
 
 # Bring nginx to the foreground
