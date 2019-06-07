@@ -12,6 +12,4 @@ COPY templates/https.conf /etc/nginx/https-template.conf
 COPY domain-list          /etc/nginx/domain-list
 COPY update-domains.sh    /usr/bin/update-domains.sh
 
-RUN chmod +x /usr/bin/update-domains.sh
-
 CMD /usr/bin/update-domains.sh
