@@ -1,0 +1,19 @@
+version: '3'
+services:
+    router:
+      build: .
+      container_name: router
+      ports: 
+        - "80:80"
+        - "443:443"
+      environment:
+        - ADMINEMAIL
+        - PRODUCTION
+      volumes:
+        - "letsencrypt:/etc/letsencrypt"
+        - "generatedconfig:/etc/nginx/conf.d/generated/"
+      image: lucas42/lucos_router
+
+volumes:
+  generatedconfig:
+  letsencrypt:

@@ -1,10 +1,19 @@
 # lucos_router
 The "front-door" for lucos apps - handles TLS unwrapping and routing to the correct backend
 
-## Running
-`ADMINEMAIL=<email_address> docker run -d -e ADMINEMAIL -p 80:80 -p 443:443 --name router --mount source=letsencrypt,target=/etc/letsencrypt --mount source=nginxconfig,target=/etc/nginx/conf.d lucas42/lucos_router`
+## Dependencies
+* docker
+* docker-compose
+
+## Running in production
+`ADMINEMAIL=<email_address> PRODUCTION=true docker-compose up -d`
 
 The ADMINEMAIL address is used for receiving emails from letsencrypt about cert renewals etc.
+
+## Running in lower environments
+`ADMINEMAIL=<test_email_address> docker-compose up -d`
+
+Doing this uses letsencrypt's staging environment.  This isn't subjected to the same rate-limiting, however the certificates given aren't accepted by standard browsers.  (Also beware you'll get lots of verification errors if you try doing this using the production domain list)
 
 ## Configuring
 
@@ -14,7 +23,7 @@ Edit the file `domain-list`.  Each line should have 2 space-separated values.  T
 
 * DNS needs set-up _before_ running.  This is used as part of the letencrypt renewal step.
 * If the directory `/etc/letsencrypt` isn't mounted as a volume, then certificates will be re-requested every time the container restarts, possibly hitting letsencrypt rate limits.
-* If the directory `/etc/nginx/conf.d` isn't mounted as a volume, then the config gets blatted every time the container restarts, resulting in a significant outage while the new container starts up.
+* If the directory `/etc/nginx/conf.d/generated` isn't mounted as a volume, then the config gets blatted every time the container restarts, resulting in a significant outage while the new container starts up.
 
 ## Building
 The build is configured to run in Dockerhub when a commit is pushed to the master branch in github.
