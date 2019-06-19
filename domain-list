@@ -11,6 +11,7 @@ ceol.l42.eu http://10.0.0.7:8001
 seinn.l42.eu http://10.0.0.8:3001
 media-api.l42.eu http://10.0.0.7:3002
 dns.l42.eu http://10.0.0.8:8012
+googlecontactsync.l42.eu http://10.0.0.8:8011
 
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
