@@ -7,7 +7,7 @@ auth.l42.eu http://10.0.0.8:8006
 l42.eu http://10.0.0.8:8003
 notes.l42.eu http://10.0.0.7:8004
 speak.l42.eu http://10.0.0.8:8014
-ceol.l42.eu http://10.0.0.7:8001
+ceol.l42.eu http://10.0.0.8:8001
 seinn.l42.eu http://10.0.0.8:3001
 media-api.l42.eu http://10.0.0.7:3002
 dns.l42.eu http://10.0.0.8:8012
