@@ -22,8 +22,7 @@ domaincount=0
 mkdir -p /etc/nginx/conf.d/generated/assets || true
 certbot certonly $certbotflags -d router.l42.eu && \
 cp /etc/nginx/router.conf /etc/nginx/conf.d/generated/ && \
-service nginx reload && \
-((domaincount++)) || true
+service nginx reload || true
 
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
@@ -44,10 +43,10 @@ do
 	certbot certonly $certbotflags -d $DOMAIN && \
 
 	echo "$backendreplaced" > /etc/nginx/conf.d/generated/$DOMAIN.conf && \
-	service nginx reload && \
-	((domaincount++)) || true
+	service nginx reload || true
 done
 
+domaincount="$(ls -1q /etc/nginx/conf.d/generated/*.conf | wc -l)"
 cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
 	{
 		"system": "lucos_router",
