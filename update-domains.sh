@@ -16,6 +16,15 @@ fi
 certbotflags+=" -m $ADMINEMAIL"
 echo "Certbot commands will use the following flags: \"$certbotflags\""
 
+domaincount=0
+
+# Special case is the domain for this service - see templates/router.conf for its config
+certbot certonly $certbotflags -d router.l42.eu && \
+mkdir -p /etc/nginx/conf.d/generated/assets && \
+cp /etc/nginx/router.conf /etc/nginx/conf.d/generated/ && \
+service nginx reload && \
+domaincount++ || true
+
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
 
@@ -35,8 +44,25 @@ do
 	certbot certonly $certbotflags -d $DOMAIN && \
 
 	echo "$backendreplaced" > /etc/nginx/conf.d/generated/$DOMAIN.conf && \
-	service nginx reload || true
+	service nginx reload && \
+	domaincount++ || true
 done
+
+cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
+	{
+		"system": "lucos_router",
+		"checks":{},
+		"metrics":{
+			"domain-count": {
+				"value": $domaincount,
+				"techDetail": "The number of domains served by the router"
+			}
+		},
+		"ci": {
+			"circle": "gh/lucas42/lucos_router"
+		}
+	}
+EOM
 
 # Bring nginx to the foreground
 fg %1
