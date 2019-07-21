@@ -19,11 +19,11 @@ echo "Certbot commands will use the following flags: \"$certbotflags\""
 domaincount=0
 
 # Special case is the domain for this service - see templates/router.conf for its config
+mkdir -p /etc/nginx/conf.d/generated/assets || true
 certbot certonly $certbotflags -d router.l42.eu && \
-mkdir -p /etc/nginx/conf.d/generated/assets && \
 cp /etc/nginx/router.conf /etc/nginx/conf.d/generated/ && \
 service nginx reload && \
-domaincount++ || true
+((domaincount++)) || true
 
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
@@ -45,7 +45,7 @@ do
 
 	echo "$backendreplaced" > /etc/nginx/conf.d/generated/$DOMAIN.conf && \
 	service nginx reload && \
-	domaincount++ || true
+	((domaincount++)) || true
 done
 
 cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
