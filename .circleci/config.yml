@@ -23,7 +23,7 @@ jobs:
     environment:
       COMPOSE_PROJECT_NAME: lucos_router
       PRODUCTION: true
-      HOSTDOMAIN: << paramaters.host-domain >>
+      HOSTDOMAIN: << parameters.host-domain >>
     docker:
       - image: circleci/buildpack-deps:buster
     steps:
