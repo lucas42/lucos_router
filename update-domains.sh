@@ -6,6 +6,16 @@ if [ -z "$ADMINEMAIL" ]; then
     echo "Need to set ADMINEMAIL (used for let's encrypt renewal emails)"
     exit 1
 fi
+if [ -z "$HOSTDOMAIN" ]; then
+    echo "Need to set HOSTDOMAIN (used to decide which list of domains is used) Permitted values:"
+    ls /etc/nginx/domain-sets
+    exit 1
+fi
+if [ ! -f "/etc/nginx/domain-sets/$HOSTDOMAIN" ]; then
+    echo "Unable to find domain set for HOSTDOMAIN $HOSTDOMAIN Permitted values:"
+    ls /etc/nginx/domain-sets
+    exit 1
+fi
 # Start up nginx in the background
 nginx -g "daemon off;" &
 
@@ -18,16 +28,16 @@ echo "Certbot commands will use the following flags: \"$certbotflags\""
 
 domaincount=0
 
-# Special case is the domain for this service - see templates/router.conf for its config
+# Special case is the hostname of the box - see templates/router.conf for its config
 mkdir -p /etc/nginx/conf.d/generated/assets || true
-certbot certonly $certbotflags -d router.l42.eu && \
+certbot certonly $certbotflags -d $HOSTDOMAIN && \
 cp /etc/nginx/router.conf /etc/nginx/conf.d/generated/ && \
 service nginx reload || true
 
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
 
-cat /etc/nginx/domain-list | while read line || [[ -n "$line" ]]
+cat /etc/nginx/domain-sets/$DOMAINSET | while read line || [[ -n "$line" ]]
 do
 	# ignore blank/commented lines
 	if [[ -z "$line" || "$line" =~ ^#.*$ ]]; then
