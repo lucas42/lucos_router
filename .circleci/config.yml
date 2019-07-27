@@ -17,7 +17,7 @@ jobs:
             echo "$DOCKERHUB_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
             docker-compose push
   deploy:
-    paramaters:
+    parameters:
       host-domain:
         type: string
     environment:
