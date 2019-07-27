@@ -29,9 +29,12 @@ echo "Certbot commands will use the following flags: \"$certbotflags\""
 domaincount=0
 
 # Special case is the hostname of the box - see templates/router.conf for its config
+
+routertemplate=$(</etc/nginx/router-template.conf)
+hostdomainreplaced=${routertemplate//\{\{domain\}\}/$HOSTDOMAIN}
 mkdir -p /etc/nginx/conf.d/generated/assets || true
 certbot certonly $certbotflags -d $HOSTDOMAIN && \
-cp /etc/nginx/router.conf /etc/nginx/conf.d/generated/ && \
+echo "$hostdomainreplaced" > /etc/nginx/conf.d/generated/$HOSTDOMAIN.conf && \
 service nginx reload || true
 
 template=$(</etc/nginx/https-template.conf)
