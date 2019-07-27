@@ -37,7 +37,7 @@ service nginx reload || true
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
 
-cat /etc/nginx/domain-sets/$DOMAINSET | while read line || [[ -n "$line" ]]
+cat /etc/nginx/domain-sets/$HOSTDOMAIN | while read line || [[ -n "$line" ]]
 do
 	# ignore blank/commented lines
 	if [[ -z "$line" || "$line" =~ ^#.*$ ]]; then
