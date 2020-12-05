@@ -83,8 +83,16 @@ workflows:
           host-domain: valen.s.l42.eu
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           context: docker
           host-domain: xwing.s.l42.eu
           requires:
             - remote-build
+          filters:
+            branches:
+              only:
+                - main
