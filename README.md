@@ -5,13 +5,17 @@ The "front-door" for lucos apps - handles TLS unwrapping and routing to the corr
 * docker
 * docker-compose
 
+
+## Build-time environment variables (needs passing into docker compose)
+* __ARCH__ - the CPU architecture of the current environment.  (Can use "local" for dev purposes)
+
 ## Running in production
-`ADMINEMAIL=<email_address> PRODUCTION=true docker-compose up -d`
+`ADMINEMAIL=<email_address> PRODUCTION=true ARCH={architecture} docker-compose up -d`
 
 The ADMINEMAIL address is used for receiving emails from letsencrypt about cert renewals etc.
 
 ## Running in lower environments
-`ADMINEMAIL=<test_email_address> docker-compose up -d`
+`ADMINEMAIL=<test_email_address> ARCH=local docker-compose up -d`
 
 Doing this uses letsencrypt's staging environment.  This isn't subjected to the same rate-limiting, however the certificates given aren't accepted by standard browsers.  (Also beware you'll get lots of verification errors if you try doing this using the production domain list)
 
