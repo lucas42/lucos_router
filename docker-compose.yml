@@ -13,7 +13,7 @@ services:
       volumes:
         - "letsencrypt:/etc/letsencrypt"
         - "generatedconfig:/etc/nginx/conf.d/generated/"
-      image: lucas42/lucos_router
+      image: lucas42/lucos_router:${ARCH}-latest
 
 volumes:
   generatedconfig:
