@@ -12,6 +12,7 @@ dns.l42.eu http://172.17.0.1:8012
 googlecontactsync.l42.eu http://172.17.0.1:8011
 monitoring.l42.eu http://172.17.0.1:8015
 valen.file-sync.l42.eu http://172.17.0.1:8018
+loganne.l42.eu http://172.17.0.1:8019
 
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
