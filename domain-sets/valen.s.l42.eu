@@ -13,6 +13,7 @@ googlecontactsync.l42.eu http://172.17.0.1:8011
 monitoring.l42.eu http://172.17.0.1:8015
 valen.file-sync.l42.eu http://172.17.0.1:8018
 loganne.l42.eu http://172.17.0.1:8019
+media-metadata.l42.eu http://172.17.0.1:8020
 
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
