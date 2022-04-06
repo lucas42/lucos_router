@@ -86,11 +86,11 @@ EOM
 cat > /etc/nginx/conf.d/generated/error-assets/_info.json << EOM
 	{
 		"system": "lucos_router",
-		"checks":{
-			host: {
-				techDetail: "Host recoginised by router"
-				ok: false,
-				debug: "The router hasn't managed to load any config relating to requested host.  This could be due to a failure during initialisation, the host not being listed in the relevant domain-set, OR because the router hasn't finished loading yet."
+		"checks": {
+			"host": {
+				"techDetail": "Host recoginised by router",
+				"ok": false,
+				"debug": "The router hasn't managed to load any config relating to requested host.  This could be due to a failure during initialisation, the host not being listed in the relevant domain-set, OR because the router hasn't finished loading yet."
 			}
 		}
 	}
