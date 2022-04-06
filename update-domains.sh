@@ -37,6 +37,14 @@ certbot certonly $certbotflags -d $HOSTDOMAIN && \
 echo "$hostdomainreplaced" > /etc/nginx/conf.d/generated/$HOSTDOMAIN.conf && \
 service nginx reload || true
 
+# Ensure there's callback config for hosts which aren't recognised
+errortemplate=$(</etc/nginx/error-template.conf)
+errorhostdomainreplaced=${errortemplate//\{\{domain\}\}/$HOSTDOMAIN}
+mkdir -p /etc/nginx/conf.d/generated/error-assets || true
+# Start with 000 in an attempt to have it take presedence over other config
+echo "$errorhostdomainreplaced" > /etc/nginx/conf.d/generated/000-error.conf && \
+service nginx reload || true
+
 template=$(</etc/nginx/https-template.conf)
 echo "Checking domain list"
 
@@ -72,6 +80,18 @@ cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
 		},
 		"ci": {
 			"circle": "gh/lucas42/lucos_router"
+		}
+	}
+EOM
+cat > /etc/nginx/conf.d/generated/error-assets/_info.json << EOM
+	{
+		"system": "lucos_router",
+		"checks":{
+			host: {
+				techDetail: "Host recoginised by router"
+				ok: false,
+				debug: "The router hasn't managed to load any config relating to requested host.  This could be due to a failure during initialisation, the host not being listed in the relevant domain-set, OR because the router hasn't finished loading yet."
+			}
 		}
 	}
 EOM

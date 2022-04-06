@@ -11,6 +11,7 @@ RUN apt-get -t stretch-backports install certbot python-certbot-nginx -y
 
 COPY conf                  /etc/nginx/conf.d
 COPY templates/router.conf /etc/nginx/router-template.conf
+COPY templates/error.conf  /etc/nginx/error-template.conf
 COPY templates/https.conf  /etc/nginx/https-template.conf
 COPY domain-sets           /etc/nginx/domain-sets
 COPY update-domains.sh     /usr/bin/update-domains.sh
