@@ -20,7 +20,10 @@ fi
 nginx -g "daemon off;" &
 
 certbotflags="--non-interactive --nginx --agree-tos"
-if [ -z "$PRODUCTION" ]; then
+if [ "$CERT_SERVER" ]; then
+	rm -rf /etc/letsencrypt/accounts/$CERT_SERVER
+	certbotflags+=" --server https://$CERT_SERVER/dir --no-verify-ssl"
+elif [ -z "$PRODUCTION" ]; then
 	certbotflags+=" --staging"
 fi
 certbotflags+=" -m $ADMINEMAIL"

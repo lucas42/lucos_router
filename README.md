@@ -19,6 +19,25 @@ The ADMINEMAIL address is used for receiving emails from letsencrypt about cert 
 
 Doing this uses letsencrypt's staging environment.  This isn't subjected to the same rate-limiting, however the certificates given aren't accepted by standard browsers.  (Also beware you'll get lots of verification errors if you try doing this using the production domain list)
 
+## Running locally without verification
+Use [pebble](https://github.com/letsencrypt/pebble) to create a local version of letsencrypt.  Add the following to the docker-compose config:
+```
+    pebble:
+      image: letsencrypt/pebble
+      ports:
+        - "14000:14000"
+      environment:
+        - PEBBLE_VA_ALWAYS_VALID=1
+        - PEBBLE_VA_NOSLEEP=1
+```
+Use a .env file similar to:
+```
+ARCH=local
+ADMINEMAIL=<test_email_address>
+HOSTDOMAIN=<host_domain>
+CERT_SERVER=172.17.0.1:14000
+```
+
 ## Configuring
 
 Edit the file `domain-list`.  Each line should have 2 space-separated values.  The first is the domain to listen on and create a certificate on.  The second is the backend to route traffic for that host to (don't include a path on the url, but do include the protocol)
