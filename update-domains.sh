@@ -32,17 +32,17 @@ domaincount=0
 
 routertemplate=$(</etc/nginx/router-template.conf)
 hostdomainreplaced=${routertemplate//\{\{domain\}\}/$HOSTDOMAIN}
-mkdir -p /etc/nginx/conf.d/generated/assets || true
-certbot certonly $certbotflags -d $HOSTDOMAIN && \
-echo "$hostdomainreplaced" > /etc/nginx/conf.d/generated/$HOSTDOMAIN.conf && \
+mkdir -p /etc/nginx/conf.d/generated/assets
+certbot certonly $certbotflags -d $HOSTDOMAIN
+echo "$hostdomainreplaced" > /etc/nginx/conf.d/generated/$HOSTDOMAIN.conf
 service nginx reload || true
 
 # Ensure there's callback config for hosts which aren't recognised
 errortemplate=$(</etc/nginx/error-template.conf)
 errorhostdomainreplaced=${errortemplate//\{\{domain\}\}/$HOSTDOMAIN}
-mkdir -p /etc/nginx/conf.d/generated/error-assets || true
+mkdir -p /etc/nginx/conf.d/generated/error-assets
 # Start with 000 in an attempt to have it take presedence over other config
-echo "$errorhostdomainreplaced" > /etc/nginx/conf.d/generated/000-error.conf && \
+echo "$errorhostdomainreplaced" > /etc/nginx/conf.d/generated/000-error.conf
 service nginx reload || true
 
 template=$(</etc/nginx/https-template.conf)
