@@ -15,6 +15,10 @@ loganne.l42.eu http://172.17.0.1:8019
 media-metadata.l42.eu http://172.17.0.1:8020
 lukeblaney.co.uk http://172.17.0.1:8021
 
+# HTTPS requests to mail domain show mail docs page
+# Note: this line also causes the TLS cert to be generated, which the SMTP server relies on
+mail.l42.eu http://172.17.0.1:8022
+
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
 phys.l42.eu https://lucas42.github.io
