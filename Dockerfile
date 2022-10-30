@@ -8,7 +8,8 @@ RUN dpkg --add-architecture armhf
 RUN apt-get update
 RUN apt-get install python3-certbot-nginx -y
 
-COPY conf                  /etc/nginx/conf.d
+COPY conf/default.conf     /etc/nginx/conf.d/
+COPY conf/nginx.conf       /etc/nginx/
 COPY templates/router.conf /etc/nginx/router-template.conf
 COPY templates/error.conf  /etc/nginx/error-template.conf
 COPY templates/https.conf  /etc/nginx/https-template.conf
