@@ -8,7 +8,6 @@ ceol.l42.eu http://172.17.0.1:8001
 seinn.l42.eu http://172.17.0.1:3001
 media-api.l42.eu http://172.17.0.1:3002
 dns.l42.eu http://172.17.0.1:8012
-googlecontactsync.l42.eu http://172.17.0.1:8011
 monitoring.l42.eu http://172.17.0.1:8015
 avalon.file-sync.l42.eu http://172.17.0.1:8018
 loganne.l42.eu http://172.17.0.1:8019
