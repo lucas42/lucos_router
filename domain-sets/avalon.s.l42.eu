@@ -18,6 +18,8 @@ lukeblaney.co.uk http://172.17.0.1:8021
 # Note: this line also causes the TLS cert to be generated, which the SMTP server relies on
 mail.l42.eu http://172.17.0.1:8022
 
+media-weighting.l42.eu http://172.17.0.1:8023
+
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
 phys.l42.eu https://lucas42.github.io
