@@ -12,7 +12,7 @@ monitoring.l42.eu http://172.17.0.1:8015
 avalon.file-sync.l42.eu http://172.17.0.1:8018
 loganne.l42.eu http://172.17.0.1:8019
 media-metadata.l42.eu http://172.17.0.1:8020
-lukeblaney.co.uk http://172.17.0.1:8021
+lukeblaney.co.uk http://172.17.0.1:8025
 
 # HTTPS requests to mail domain show mail docs page
 # Note: this line also causes the TLS cert to be generated, which the SMTP server relies on
