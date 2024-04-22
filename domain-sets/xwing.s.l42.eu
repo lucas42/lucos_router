@@ -1,4 +1,4 @@
 private.l42.eu http://172.17.0.1:8016
 staticmedia.l42.eu http://172.17.0.1:8017
-nas.l42.eu https://aurora
+nas.l42.eu https://aurora.local
 xwing.file-sync.l42.eu http://172.17.0.1:8018
