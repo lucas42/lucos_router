@@ -11,7 +11,7 @@ if [ -z "$HOSTDOMAIN" ]; then
     ls /etc/nginx/domain-sets
     exit 1
 fi
-HOSTNAME=`echo $HOSTNAME | sed s/-v\[0-9\]//g` # Strip out the versioning part from any ip v4 or ip v6 specific hostnames
+HOSTDOMAIN=`echo "$HOSTDOMAIN" | sed s/-v\[0-9\]//g` # Strip out the versioning part from any ip v4 or ip v6 specific hostnames
 if [ ! -f "/etc/nginx/domain-sets/$HOSTDOMAIN" ]; then
     echo "Unable to find domain set for HOSTDOMAIN $HOSTDOMAIN Permitted values:"
     ls /etc/nginx/domain-sets
