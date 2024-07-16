@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 set -m
+export $(cat /etc/.env | xargs)
 
 if [ -z "$ADMINEMAIL" ]; then
     echo "Need to set ADMINEMAIL (used for let's encrypt renewal emails)"
@@ -17,8 +18,6 @@ if [ ! -f "/etc/nginx/domain-sets/$HOSTDOMAIN" ]; then
     ls /etc/nginx/domain-sets
     exit 1
 fi
-# Start up nginx in the background
-nginx -g "daemon off;" &
 
 certbotflags="--non-interactive --nginx --agree-tos"
 if [ "$CERT_SERVER" ]; then
@@ -99,6 +98,3 @@ cat > /etc/nginx/conf.d/generated/error-assets/_info.json << EOM
 		}
 	}
 EOM
-
-# Bring nginx to the foreground
-fg %1
