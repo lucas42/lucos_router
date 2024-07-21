@@ -100,4 +100,5 @@ cat > /etc/nginx/conf.d/generated/error-assets/_info.json << EOM
 EOM
 
 # Update the schedule tracker to report success (failure would exit before now due to `set -e` at the top)
-curl -s "https://schedule-tracker.l42.eu/report-status" --json '{"system":"lucos_router","frequency":86400,"status":"success"}'
+system=`echo "lucos_router_$HOSTDOMAIN" | sed s/\\\\..\\*//`
+curl -s "https://schedule-tracker.l42.eu/report-status" --json "{\"system\":\"$system\",\"frequency\":86400,\"status\":\"success\"}"
