@@ -49,4 +49,4 @@ Edit the file `domain-list`.  Each line should have 2 space-separated values.  T
 * If the directory `/etc/nginx/conf.d/generated` isn't mounted as a volume, then the config gets blatted every time the container restarts, resulting in a significant outage while the new container starts up.
 
 ## Building
-The build is configured to run in Dockerhub when a commit is pushed to the master branch in github.
+The build is configured to run in Dockerhub when a commit is pushed to the `main` branch in github.
