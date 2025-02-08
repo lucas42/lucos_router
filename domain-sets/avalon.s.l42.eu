@@ -22,6 +22,7 @@ schedule-tracker.l42.eu http://172.17.0.1:8024
 scenes.l42.eu http://172.17.0.1:8026
 backups.l42.eu http://172.17.0.1:8027
 semweb.lukeblaney.co.uk http://172.17.0.1:8029
+repos.l42.eu http://172.17.0.1:8030
 
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
