@@ -19,7 +19,7 @@ if [ ! -f "/etc/nginx/domain-sets/$HOSTDOMAIN" ]; then
     exit 1
 fi
 
-certbotflags="--non-interactive --nginx --agree-tos"
+certbotflags="--non-interactive --nginx --agree-tos --deploy-hook post-to-loganne.sh"
 if [ "$CERT_SERVER" ]; then
 	rm -rf /etc/letsencrypt/accounts/$CERT_SERVER
 	certbotflags+=" --server https://$CERT_SERVER/dir --no-verify-ssl"
