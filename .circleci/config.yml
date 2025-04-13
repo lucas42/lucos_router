@@ -6,7 +6,6 @@ workflows:
   build-deploy:
     jobs:
       - lucos/build-amd64
-      - lucos/build-armv7l
       - lucos/deploy-avalon:
           requires:
             - lucos/build-amd64
@@ -14,9 +13,10 @@ workflows:
             branches:
               only:
                 - main
-      - lucos/deploy-xwing:
+      - lucos/build-arm64
+      - lucos/deploy-salvare:
           requires:
-            - lucos/build-armv7l
+            - lucos/build-arm64
           filters:
             branches:
               only:
