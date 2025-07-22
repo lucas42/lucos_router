@@ -13,10 +13,10 @@ workflows:
             branches:
               only:
                 - main
-      - lucos/build-arm64
-      - lucos/deploy-salvare:
+      - lucos/build-armv7l
+      - lucos/deploy-xwing:
           requires:
-            - lucos/build-arm64
+            - lucos/build-armv7l
           filters:
             branches:
               only:
