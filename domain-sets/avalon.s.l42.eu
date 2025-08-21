@@ -23,6 +23,7 @@ backups.l42.eu http://172.17.0.1:8027
 locations.l42.eu http://172.17.0.1:8028
 semweb.lukeblaney.co.uk http://172.17.0.1:8029
 repos.l42.eu http://172.17.0.1:8030
+creds.l42.eu http://172.17.0.1:8031
 
 tfluke.uk https://lucas42.github.io
 www.tfluke.uk https://lucas42.github.io
