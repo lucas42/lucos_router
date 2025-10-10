@@ -36,6 +36,7 @@ ARCH=local
 ADMINEMAIL=<test_email_address>
 HOSTDOMAIN=<host_domain>
 CERT_SERVER=172.17.0.1:14000
+SCHEDULE_TRACKER_ENDPOINT=https://schedule-tracker.l42.eu/report-status
 ```
 
 ## Configuring

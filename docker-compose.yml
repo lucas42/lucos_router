@@ -10,6 +10,7 @@ services:
         - HOSTDOMAIN
         - PRODUCTION
         - CERT_SERVER
+        - SCHEDULE_TRACKER_ENDPOINT
       volumes:
         - "letsencrypt:/etc/letsencrypt"
         - "generatedconfig:/etc/nginx/conf.d/generated/"

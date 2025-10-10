@@ -4,19 +4,23 @@ set -m
 export $(cat /etc/.env | xargs)
 
 if [ -z "$ADMINEMAIL" ]; then
-    echo "Need to set ADMINEMAIL (used for let's encrypt renewal emails)"
-    exit 1
+	echo "Need to set ADMINEMAIL (used for let's encrypt renewal emails)"
+	exit 1
 fi
 if [ -z "$HOSTDOMAIN" ]; then
-    echo "Need to set HOSTDOMAIN (used to decide which list of domains is used) Permitted values:"
-    ls /etc/nginx/domain-sets
-    exit 1
+	echo "Need to set HOSTDOMAIN (used to decide which list of domains is used) Permitted values:"
+	ls /etc/nginx/domain-sets
+	exit 1
 fi
 HOSTDOMAIN=`echo "$HOSTDOMAIN" | sed s/-v\[0-9\]//g` # Strip out the versioning part from any ip v4 or ip v6 specific hostnames
 if [ ! -f "/etc/nginx/domain-sets/$HOSTDOMAIN" ]; then
-    echo "Unable to find domain set for HOSTDOMAIN $HOSTDOMAIN Permitted values:"
-    ls /etc/nginx/domain-sets
-    exit 1
+	echo "Unable to find domain set for HOSTDOMAIN $HOSTDOMAIN Permitted values:"
+	ls /etc/nginx/domain-sets
+	exit 1
+fi
+if [ -z "$SCHEDULE_TRACKER_ENDPOINT" ]; then
+	echo "Need to set SCHEDULE_TRACKER_ENDPOINT (used for reporting status of cron jobs)"
+	exit 1
 fi
 
 certbotflags="--non-interactive --nginx --agree-tos --deploy-hook post-to-loganne.sh"
@@ -101,4 +105,4 @@ EOM
 
 # Update the schedule tracker to report success (failure would exit before now due to `set -e` at the top)
 system=`echo "lucos_router_$HOSTDOMAIN" | sed s/\\\\..\\*//`
-curl -s "https://schedule-tracker.l42.eu/report-status" --json "{\"system\":\"$system\",\"frequency\":86400,\"status\":\"success\"}"
+curl -s "$SCHEDULE_TRACKER_ENDPOINT" --json "{\"system\":\"$system\",\"frequency\":86400,\"status\":\"success\"}"
