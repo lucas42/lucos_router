@@ -25,6 +25,5 @@ do
 	if [[ "$host_id" == "avalon" ]]; then
 		echo "tfluke.uk https://lucas42.github.io" >> /etc/nginx/domain-sets/$host_domain
 		echo "www.tfluke.uk https://lucas42.github.io" >> /etc/nginx/domain-sets/$host_domain
-		echo "phys.l42.eu https://lucas42.github.io" >> /etc/nginx/domain-sets/$host_domain
 	fi
 done
