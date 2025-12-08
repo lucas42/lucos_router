@@ -3,6 +3,8 @@ set -e
 set -m
 export $(cat /etc/.env | xargs)
 
+fetch-domainsets.sh
+
 if [ -z "$ADMINEMAIL" ]; then
 	echo "Need to set ADMINEMAIL (used for let's encrypt renewal emails)"
 	exit 1
