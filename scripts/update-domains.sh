@@ -25,7 +25,7 @@ if [ -z "$SCHEDULE_TRACKER_ENDPOINT" ]; then
 	exit 1
 fi
 
-certbotflags="--non-interactive --nginx --agree-tos --deploy-hook post-to-loganne.sh"
+certbotflags="--non-interactive --nginx --agree-tos --deploy-hook post-to-loganne.sh --deploy-hook fix-cert-permissions.sh"
 if [ "$CERT_SERVER" ]; then
 	rm -rf /etc/letsencrypt/accounts/$CERT_SERVER
 	certbotflags+=" --server https://$CERT_SERVER/dir --no-verify-ssl"
