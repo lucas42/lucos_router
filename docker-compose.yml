@@ -16,6 +16,12 @@ services:
         - "generatedconfig:/etc/nginx/conf.d/generated/"
       image: lucas42/lucos_router:${ARCH}-latest
       restart: always
+      healthcheck:
+        test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/"]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+        start_period: 15s
 
 volumes:
   generatedconfig:
