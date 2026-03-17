@@ -3,8 +3,6 @@ FROM nginx:1.29.6
 RUN rm /etc/nginx/conf.d/*
 RUN rm -rf /usr/share/nginx/html
 
-RUN dpkg --add-architecture amd64
-RUN dpkg --add-architecture armhf
 RUN apt-get update
 RUN apt-get install cron python3-certbot-nginx -y
 
