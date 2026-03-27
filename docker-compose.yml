@@ -1,7 +1,7 @@
 services:
     router:
       build: .
-      container_name: router
+      container_name: lucos_router
       ports: 
         - "80:80"
         - "443:443"
