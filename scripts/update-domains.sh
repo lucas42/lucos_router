@@ -76,6 +76,26 @@ do
 	service nginx reload || true
 done
 
+# Remove stale configs for domains no longer in the current domain set.
+# This prevents nginx failing to start if a cert was deleted for a domain
+# that was removed from configy (the crash-loop scenario from issue #58).
+# Note: set -e at the top of this script means we only reach here if
+# fetch-domainsets.sh succeeded — so the domain set file is up to date.
+for conf in /etc/nginx/conf.d/generated/*.conf; do
+	domain=$(basename "$conf" .conf)
+	# Always keep the special-cased configs
+	if [[ "$domain" == "000-error" || "$domain" == "$HOSTDOMAIN" ]]; then
+		continue
+	fi
+	# Keep if the domain is still in the current domain set
+	if grep -q "^${domain}[[:space:]]" /etc/nginx/domain-sets/$HOSTDOMAIN 2>/dev/null; then
+		continue
+	fi
+	echo "Removing stale config: $domain"
+	rm "$conf"
+done
+service nginx reload || true
+
 domaincount="$(ls -1q /etc/nginx/conf.d/generated/*.conf | wc -l)"
 cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
 	{
