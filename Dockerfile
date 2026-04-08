@@ -1,4 +1,4 @@
-FROM nginx:1.29.7
+FROM nginx:1.29.8
 
 RUN rm /etc/nginx/conf.d/*
 RUN rm -rf /usr/share/nginx/html
