@@ -3,14 +3,14 @@ set -e
 
 mkdir -p /etc/nginx/domain-sets
 
-curl "https://configy.l42.eu/hosts/http?fields=id,domain" -s -H "Accept:text/csv;header=absent" | while read -r host_line
+curl "https://configy.l42.eu/hosts/http?fields=id,domain" -s -H "Accept:text/csv;header=absent" -H "User-Agent: $SYSTEM" | while read -r host_line
 do
 	IFS=$','; split=($host_line); unset IFS;
 	host_id=${split[0]}
 	host_domain=${split[1]}
 	echo "# Config for host $host_id" > /etc/nginx/domain-sets/$host_domain
 	echo "# Auto-generated using data from lucos_configy" >> /etc/nginx/domain-sets/$host_domain
-	curl "https://configy.l42.eu/systems/host/${host_id}?fields=domain,http_port" -s -H "Accept:text/csv;header=absent" | while read -r system_line
+	curl "https://configy.l42.eu/systems/host/${host_id}?fields=domain,http_port" -s -H "Accept:text/csv;header=absent" -H "User-Agent: $SYSTEM" | while read -r system_line
 	do
 		IFS=$','; split=($system_line); unset IFS;
 		system_domain=${split[0]}

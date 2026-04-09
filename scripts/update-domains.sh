@@ -127,4 +127,4 @@ EOM
 
 # Update the schedule tracker to report success (failure would exit before now due to `set -e` at the top)
 system=`echo "lucos_router_$HOSTDOMAIN" | sed s/\\\\..\\*//`
-curl -s "$SCHEDULE_TRACKER_ENDPOINT" --json "{\"system\":\"$system\",\"frequency\":86400,\"status\":\"success\"}"
+curl -s "$SCHEDULE_TRACKER_ENDPOINT" -H "User-Agent: $SYSTEM" --json "{\"system\":\"$system\",\"frequency\":86400,\"status\":\"success\"}"

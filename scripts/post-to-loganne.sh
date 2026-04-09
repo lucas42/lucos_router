@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-curl https://loganne.l42.eu/events --data '{
+curl https://loganne.l42.eu/events -H "User-Agent: $SYSTEM" --data '{
   "type": "certificateRenewed",
   "source": "lucos_router",
   "certificate_domain": "'"$RENEWED_DOMAINS"'",
