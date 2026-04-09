@@ -8,4 +8,7 @@ set -e
 find /etc/letsencrypt -name "privkey*.pem" -exec chgrp certreaders {} \;
 find /etc/letsencrypt -name "privkey*.pem" -exec chmod 640 {} \;
 
+# Make archive directories traversable so non-root cert readers can follow symlinks
+find /etc/letsencrypt/archive -type d -exec chmod o+rx {} \;
+
 echo "Cert permissions updated: private keys are now readable by group certreaders (GID 1500)"
