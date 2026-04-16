@@ -1,4 +1,6 @@
 FROM nginx:1.29.8
+ARG VERSION
+ENV VERSION=$VERSION
 
 RUN rm /etc/nginx/conf.d/*
 RUN rm -rf /usr/share/nginx/html
