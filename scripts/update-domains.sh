@@ -96,6 +96,32 @@ for conf in /etc/nginx/conf.d/generated/*.conf; do
 done
 service nginx reload || true
 
+# Remove orphaned certbot renewal configs for domains no longer in the current domain set.
+# The stock Debian certbot cron (/etc/cron.d/certbot, activated by startup.sh) runs
+# `certbot renew` twice a day, iterating /etc/letsencrypt/renewal/*.conf independently of
+# configy.  Without this cleanup, decommissioned domains' renewal configs persist and
+# trigger failing NXDOMAIN renewal attempts indefinitely.
+# Must iterate the letsencrypt renewal store directly — by the time a renewal config is
+# orphaned, the nginx config for that domain has already been removed on a prior run, so
+# the nginx-config loop above has nothing left to trigger on.
+# Note: set -e at the top of this script means we only reach here if fetch-domainsets.sh
+# succeeded, so the domain set file is up to date (same guarantee the #58 nginx loop relies on).
+for renewal_conf in /etc/letsencrypt/renewal/*.conf; do
+	# Handle the case where the glob expands to a literal path (no .conf files present)
+	[ -f "$renewal_conf" ] || continue
+	domain=$(basename "$renewal_conf" .conf)
+	# Always keep the host's own cert (created outside the domain-set loop, line ~45)
+	if [[ "$domain" == "$HOSTDOMAIN" ]]; then
+		continue
+	fi
+	# Keep if the domain is still in the current domain set
+	if grep -q "^${domain}[[:space:]]" /etc/nginx/domain-sets/$HOSTDOMAIN 2>/dev/null; then
+		continue
+	fi
+	echo "Removing orphaned cert: $domain"
+	certbot delete --cert-name "$domain" --non-interactive
+done
+
 domaincount="$(ls -1q /etc/nginx/conf.d/generated/*.conf | wc -l)"
 cat > /etc/nginx/conf.d/generated/assets/_info.json << EOM
 	{
