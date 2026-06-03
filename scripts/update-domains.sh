@@ -120,6 +120,14 @@ for renewal_conf in /etc/letsencrypt/renewal/*.conf; do
 	fi
 	echo "Removing orphaned cert: $domain"
 	certbot delete --cert-name "$domain" --non-interactive
+	curl https://loganne.l42.eu/events -H "User-Agent: $SYSTEM" --data "{
+  \"type\": \"certificateDeleted\",
+  \"source\": \"lucos_router\",
+  \"level\": \"notable\",
+  \"certificate_domain\": \"$domain\",
+  \"host\": \"$HOSTDOMAIN\",
+  \"humanReadable\": \"Removed orphaned TLS certificate for $domain on host $HOSTDOMAIN (no longer in the active HTTP domain set)\"
+}" -H "Content-Type: application/json" --fail --silent --show-error || echo "Warning: Failed to post certificateDeleted event to Loganne for $domain"
 done
 
 domaincount="$(ls -1q /etc/nginx/conf.d/generated/*.conf | wc -l)"
