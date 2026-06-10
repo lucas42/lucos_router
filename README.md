@@ -48,6 +48,7 @@ Edit the file `domain-list`.  Each line should have 2 space-separated values.  T
 * DNS needs set-up _before_ running.  This is used as part of the letencrypt renewal step.
 * If the directory `/etc/letsencrypt` isn't mounted as a volume, then certificates will be re-requested every time the container restarts, possibly hitting letsencrypt rate limits.
 * If the directory `/etc/nginx/conf.d/generated` isn't mounted as a volume, then the config gets blatted every time the container restarts, resulting in a significant outage while the new container starts up.
+* **New service cert latency:** when a new domain is registered in configy, the router only picks it up (issues a cert and creates the nginx vhost) on the **next container startup** or the **daily `update-domains.sh` cron at 22:16 UTC**. Until then the router serves its default host cert for the new domain, so the monitoring board will show `tls-certificate` and `fetch-info` failing for up to ~24 hours. This is working-as-designed (the router has no push notification from configy) and self-heals automatically. To force immediate cert issuance, restart `lucos_router` on the relevant host.
 
 ## Building
 The build is configured to run in Dockerhub when a commit is pushed to the `main` branch in github.
