@@ -72,7 +72,7 @@ do
 
 	certbot certonly $certbotflags -d $DOMAIN && \
 
-	echo "$backendreplaced" > /etc/nginx/conf.d/generated/$DOMAIN.conf && \
+	echo "$backendreplaced" | inject-security-blocks.py "$DOMAIN" > /etc/nginx/conf.d/generated/$DOMAIN.conf && \
 	service nginx reload || true
 done
 

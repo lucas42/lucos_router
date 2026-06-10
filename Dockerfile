@@ -18,5 +18,7 @@ COPY templates/router.conf /etc/nginx/router-template.conf
 COPY templates/error.conf  /etc/nginx/error-template.conf
 COPY templates/https.conf  /etc/nginx/https-template.conf
 COPY scripts/*     /usr/bin/
+RUN chmod +x /usr/bin/inject-security-blocks.py
+COPY conf/domain-security-blocks/ /etc/nginx/domain-security-blocks/
 
 CMD /usr/bin/startup.sh
